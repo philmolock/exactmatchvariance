@@ -55,7 +55,7 @@ def auditMain():
             headerSearchRow = next(reader)
         
         
-        with open(f'TEST{getDateTimeNow()}.csv', 'w', newline='') as csvwriter:
+        with open(f'Exact Audit {getDateTimeNow()}.csv', 'w', newline='') as csvwriter:
             searchTermReportWriter = csv.writer(csvwriter)
             headerSearchRow.append('Difference Ratio')
             searchTermReportWriter.writerow(headerSearchRow)
@@ -118,6 +118,3 @@ proglabel.grid(column=0,row=3)
 
 # GUI | LAUNCH WINDOW
 window.mainloop()
-
-# Run main def
-
