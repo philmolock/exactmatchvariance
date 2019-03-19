@@ -3,11 +3,11 @@ from tkinter import ttk
 from difflib import SequenceMatcher
 import random, time, os, csv, datetime
 
-# global vars
 
-# Helper functions 
 
-# Get a list of CSV in DIR then return a list of the ones that are search reports
+# Helper functions
+
+# Get all search term reports in the current directory, returning as a tuple
 
 def getSearchTermReports():
     csvInDir = [item for item in os.listdir() if '.csv' in item]
@@ -30,16 +30,11 @@ def getDateTimeNow():
 def getRatio(a,b):
     return SequenceMatcher(None, stringPrep(a), stringPrep(b)).ratio()
 
-# prep strings for comparison
+# Prep strings for comparison
 def stringPrep(stringToPrep):
     return stringToPrep.lower().replace(" ","")
 
-# Get Search Term Report CSV reader and advance to header, prep header, and prep for scoring
-def prepSearchTermReader(searchTermReader):
-
-    return True
-
-# audit main to kick off scoring
+# Audit main to kick off auditing a Search Term Report
 def auditMain():
     totalRows = 0
     with open(cboxGetSearchTermReport.get(), errors="ignore") as csvReader:
@@ -76,8 +71,6 @@ def auditMain():
 # Global variables
 tupleOfSearchTermInDir = getSearchTermReports()
 
-# main thread to kick off script
-
 # GUI Setup
 
 # GUI | Base window
@@ -90,6 +83,7 @@ window.geometry('550x200')
 chooseSearchTermReport = tk.Label(text='Search Term Report:', font=36)
 chooseSearchTermReport.grid(column=0,row=0, sticky="W", pady=10) 
 
+# GUI | Combo Box for selecting Search Term Report to Audit
 cboxGetSearchTermReport = ttk.Combobox(values=tupleOfSearchTermInDir, state="readonly", font=12)
 cboxGetSearchTermReport.set(tupleOfSearchTermInDir[0])
 cboxGetSearchTermReport.grid(column=1,row=0)
@@ -102,19 +96,16 @@ title.grid(column=0,row=1, sticky="W", pady=10)
 cboxGetDiffRatioThresh = ttk.Combobox(values=(0.25,0.50,0.75,1.00), state="readonly", font=12)
 cboxGetDiffRatioThresh.set(0.25)
 cboxGetDiffRatioThresh.grid(column=1,row=1)
-# BUTTON
+
+# GUI | Button for beginning the audit
 auditButton = tk.Button(text="Audit", command=auditMain, font=36, width=10)
 auditButton.grid(column=1,row=3, padx=10, pady=10)
 
-# progressbar = ttk.Progressbar(maximum=100)
-# progressbar.grid(column=0,row=2)
-
+# GUI | Progress counter for audit
 var = tk.StringVar()
 var.set('')
 proglabel = tk.Label(textvariable=var)
 proglabel.grid(column=0,row=3)
-
-# GUI | Label for help contact fooder
 
 # GUI | LAUNCH WINDOW
 window.mainloop()
