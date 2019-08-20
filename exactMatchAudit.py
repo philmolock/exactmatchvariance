@@ -67,6 +67,8 @@ def auditMain():
                             searchTermReportWriter.writerow(row)             
                 else:
                     break
+    finished = input('Press any key to continue...')
+                   
 
 # Global variables
 tupleOfSearchTermInDir = getSearchTermReports()
